@@ -98,11 +98,11 @@ if (typeof describe === 'function'){
       const crewMember2 = new CrewMember('Commander Lewis', 'commander', 'geology');
       assert.equal(mav.missionStatement(), "Can't perform a mission yet.");
       assert.equal(hermes.missionStatement(), "Can't perform a mission yet.");
-      
+      const crewMember3 = new CrewMember('Rick Sanchez', 'programmer', 'science');
       crewMember1.enterShip(mav);
-      
-      console.log('mav crew 1 job',jobTypes[mav.crew[0].job])
-
+      crewMember3.enterShip(hermes);
+      assert.equal(hermes.missionStatement(), "Interplanetary Space Travel");
+      // console.log('mav crew 1 job',jobTypes[mav.crew[0].job])
       assert.equal(mav.missionStatement(), "Ascend into low orbit");
       crewMember2.enterShip(hermes);
       assert.equal(hermes.missionStatement(), "Interplanetary Space Travel");
