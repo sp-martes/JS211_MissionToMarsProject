@@ -36,13 +36,13 @@ class Ship {
   missionStatement(){
     // finally got it the way I wanted 
     //with the help of this https://flexiple.com/loop-through-object-javascript/
-    let keys = Object.keys(this.crew);
-    let shipMatch = [];
-    keys.forEach((member) => {
-      shipMatch.push(jobTypes[this.crew[member].job])
+    let crew = Object.keys(this.crew);
+    let jobMatch = [];
+    crew.forEach((member) => {
+      jobMatch.push(jobTypes[this.crew[member].job])
     });
-    console.log('shipmatch:',shipMatch)
-    if( (shipMatch.indexOf(this.type) > -1) || shipMatch.includes('Any Ship!') ){
+    console.log('shipmatch:',jobMatch)
+    if( (jobMatch.indexOf(this.type) > -1) || jobMatch.includes('Any Ship!') ){
       return this.ability
     }
 
