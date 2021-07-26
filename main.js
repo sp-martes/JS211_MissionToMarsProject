@@ -21,7 +21,7 @@ class CrewMember {
   enterShip(shippy){
     this.ship = shippy  
     shippy.crew.push(this) 
-    }
+  }
 }
 
 
@@ -34,8 +34,8 @@ class Ship {
   }
 
   missionStatement(){
-    // finally got it the way I wanted 
-    //with the help of this https://flexiple.com/loop-through-object-javascript/
+    // got it the way I wanted 
+    // with the help of this https://flexiple.com/loop-through-object-javascript/
     let crew = Object.keys(this.crew);
     let jobMatch = [];
     crew.forEach((member) => {
@@ -102,6 +102,7 @@ if (typeof describe === 'function'){
       crewMember1.enterShip(mav);
       crewMember3.enterShip(hermes);
       assert.equal(hermes.missionStatement(), "Interplanetary Space Travel");
+      // test below is what led to the finished code
       // console.log('mav crew 1 job',jobTypes[mav.crew[0].job])
       assert.equal(mav.missionStatement(), "Ascend into low orbit");
       crewMember2.enterShip(hermes);
