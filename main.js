@@ -2,7 +2,7 @@
 const assert = require('assert');
 
 // This is an object that has types of jobs and the values each provide.
-const jobTypes = {
+const jobType = {
   pilot: 'MAV',
   mechanic: 'Repair Ship',
   commander: 'Main Ship',
@@ -39,12 +39,27 @@ class Ship {
     let crew = Object.keys(this.crew);
     let jobMatch = [];
     crew.forEach((member) => {
-      jobMatch.push(jobTypes[this.crew[member].job])
+      jobMatch.push(jobType[this.crew[member].job])
     });
-    console.log('shipmatch:',jobMatch)
+    console.log('jobMatch:',jobMatch)
+  
     if( (jobMatch.indexOf(this.type) > -1) || jobMatch.includes('Any Ship!') ){
       return this.ability
     }
+
+    // find is probably better for missionStatement()
+
+    // let jobMatch = this.crew.find(member => { 
+    //   if(jobType[member.job] == this.type || member.job == 'programmer'){
+    //     return true
+    //   }
+    // })
+
+    // console.log('Job Match:',jobMatch)
+
+    // if(jobMatch){
+    //   return this.ability
+    // }
 
     else{
       return "Can't perform a mission yet."
