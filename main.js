@@ -21,7 +21,7 @@ class CrewMember {
     this.ship = shippy  
     shippy.crew.push(this) 
     if(jobType[this.job] == shippy.type || this.job == 'programmer'){
-      shippy.canFly = true
+      shippy.readyForMission = true
     }
   }
 }
@@ -33,11 +33,11 @@ class Ship {
     this.type = type;
     this.ability = ability;
     this.crew = [];
-    this.canFly = false
+    this.readyForMission = false
   }
 
   missionStatement(){
-    return (this.canFly ? this.ability : "Can't perform a mission yet.")
+    return (this.readyForMission ? this.ability : "Can't perform a mission yet.")
   }
 }
     // Previous ways of returning missionStatement below
