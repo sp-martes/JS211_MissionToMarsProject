@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('assert');
 
-// This is an object that has types of jobs and the values each provide.
+
 const jobType = {
   pilot: 'MAV',
   mechanic: 'Repair Ship',
@@ -10,7 +10,6 @@ const jobType = {
 };
 
 class CrewMember {
-
   constructor(name, job, specialSkill){
     this.name = name;
     this.job = job;
@@ -21,6 +20,9 @@ class CrewMember {
   enterShip(shippy){
     this.ship = shippy  
     shippy.crew.push(this) 
+    if(jobType[this.job] == shippy.type || this.job == 'programmer'){
+      shippy.canFly = true
+    }
   }
 }
 
@@ -31,19 +33,26 @@ class Ship {
     this.type = type;
     this.ability = ability;
     this.crew = [];
+    this.canFly = false
   }
 
   missionStatement(){
+    return (this.canFly ? this.ability : "Can't perform a mission yet.")
+  }
+}
+    // Previous ways of returning missionStatement below
+
     // got it the way I wanted 
     // with the help of this https://flexiple.com/loop-through-object-javascript/
-    let crew = Object.keys(this.crew);
-    let jobMatch = [];
-    crew.forEach((member) => {
-      jobMatch.push(jobType[this.crew[member].job])
-    });
-    let match = (jobMatch.indexOf(this.type) > -1) || jobMatch.includes('Any Ship!')
     
-    return (match ? this.ability : "Can't perform a mission yet.")
+    // let crew = Object.keys(this.crew);
+    // let jobMatch = [];
+    // crew.forEach((member) => {
+    //   jobMatch.push(jobType[this.crew[member].job])
+    // });
+    // let match = (jobMatch.indexOf(this.type) > -1) || jobMatch.includes('Any Ship!')
+    // return (match ? this.ability : "Can't perform a mission yet.")
+    
 
     // find is probably better than object keys for missionStatement()
 
@@ -53,8 +62,8 @@ class Ship {
     
     // return (jobMatch ? this.ability : "Can't perform a mission yet.")
 
-  }
-}
+  
+
 
 
 
