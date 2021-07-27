@@ -41,13 +41,13 @@ class Ship {
     crew.forEach((member) => {
       jobMatch.push(jobType[this.crew[member].job])
     });
-    console.log('jobMatch:',jobMatch)
+    // console.log('jobMatch:',jobMatch)
   
     if( (jobMatch.indexOf(this.type) > -1) || jobMatch.includes('Any Ship!') ){
       return this.ability
     }
 
-    // find is probably better for missionStatement()
+    // find is probably better than object keys for missionStatement()
 
     // let jobMatch = this.crew.find(member => { 
     //   if(jobType[member.job] == this.type || member.job == 'programmer'){
