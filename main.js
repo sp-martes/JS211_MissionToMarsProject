@@ -17,9 +17,18 @@ class CrewMember {
     this.ship = null
   }
 
+  leaveShip(){
+    let ilocated = this.ship.crew.indexOf(this)
+    this.ship.crew.splice(ilocated,1)
+  }
+  
   enterShip(shippy){
-    this.ship = shippy  
-    shippy.crew.push(this) 
+    if(this.ship){
+      this.leaveShip();
+    }
+    this.ship = shippy 
+    shippy.crew.push(this)
+    
     if(jobType[this.job] == shippy.type || this.job == 'programmer'){
       shippy.readyForMission = true
     }
@@ -40,6 +49,8 @@ class Ship {
     return (this.readyForMission ? this.ability : "Can't perform a mission yet.")
   }
 }
+
+
     // Previous ways of returning missionStatement below
 
     // got it the way I wanted 
@@ -113,13 +124,17 @@ if (typeof describe === 'function'){
       assert.equal(hermes.missionStatement(), "Can't perform a mission yet.");
       const crewMember3 = new CrewMember('Rick Sanchez', 'programmer', 'science');
       crewMember1.enterShip(mav);
+      crewMember3.enterShip(mav);
       crewMember3.enterShip(hermes);
+      console.log('mav crew members:',mav.crew)
+      console.log('hermes crew members:',hermes.crew)
       assert.equal(hermes.missionStatement(), "Interplanetary Space Travel");
       // test below is what led to the finished code
       // console.log('mav crew 1 job',jobTypes[mav.crew[0].job])
       assert.equal(mav.missionStatement(), "Ascend into low orbit");
       crewMember2.enterShip(hermes);
       assert.equal(hermes.missionStatement(), "Interplanetary Space Travel");
+      console.log('hermes crew members 2:',hermes.crew)
     });
   });
 }
