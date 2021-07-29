@@ -22,15 +22,9 @@ class CrewMember {
     if(this.ship){
       this.leaveShip();
     }
-
     // assigns this crewmember to new ships crew
     this.ship = shippy 
     shippy.crew.push(this)
-
-    // if this crewmember's job type matches ship type readyForMission is set to true
-    if(jobType[this.job] == shippy.type || this.job == 'programmer'){
-      shippy.readyForMission = true
-    }
   }
   
   leaveShip(){
@@ -38,20 +32,9 @@ class CrewMember {
     if(!this.ship){
       return
     }
-
     // locates this crewmember on current ship's crew and splices member out
     let ilocated = this.ship.crew.indexOf(this)
     this.ship.crew.splice(ilocated,1)
-
-    // checks to see if no job matches exist in ships crew after splice out
-    let noJobMatch = this.ship.crew.find(member => { 
-      return( (jobType[member.job] != this.type) || (member.job != 'programmer') )
-    });
-
-    // if no job match exists in old ships crew or there is no crew, readyForMission is set to false
-    if(noJobMatch || this.ship.crew.length === 0){
-      this.ship.readyForMission = false
-    }
     
     this.ship = null
   }
@@ -68,36 +51,42 @@ class Ship {
   }
 
   missionStatement(){
+    let jobMatch = this.crew.find(member => { 
+      return( (jobType[member.job] == this.type) || (member.job == 'programmer') )
+    });
+
+    jobMatch ? this.readyForMission = true : this.readyForMission = false;
+
     return (this.readyForMission ? this.ability : "Can't perform a mission yet.")
   }
 }
 
     // Tests
     
-    let mav = new Ship('Mars Ascent Vehicle', 'MAV', 'Ascend into low orbit');
-    let hermes = new Ship('Hermes', 'Main Ship', 'Interplanetary Space Travel');
-    const crewMember1 = new CrewMember('Rick Martinez', 'pilot', 'chemistry');
+    // let mav = new Ship('Mars Ascent Vehicle', 'MAV', 'Ascend into low orbit');
+    // let hermes = new Ship('Hermes', 'Main Ship', 'Interplanetary Space Travel');
+    // const crewMember1 = new CrewMember('Rick Martinez', 'pilot', 'chemistry');
     
-    // Tested to see if crew could leave ship before entering ship
-    crewMember1.leaveShip()
-    console.log('crewmember1 leave ship before enter ship:', crewMember1)
-    // mav and crewmember1 intial
-    console.log('mav no crew before:', mav)
-    console.log('crewmember1 initial:',crewMember1)
-    // tested to see if mav readyformission was true
-    crewMember1.enterShip(mav)
-    console.log('crewmember1 entermav:',crewMember1)
-    // tested to see if crewmember1 could enter new ship and mav crew would update properly
-    crewMember1.enterShip(hermes)
-    console.log('mav no crew after:', mav)
-    console.log('crewmember1 leaveMav enterHermes:',crewMember1)
+    // // Tested to see if crew could leave ship before entering ship
+    // crewMember1.leaveShip()
+    // console.log('crewmember1 leave ship before enter ship:', crewMember1)
+    // // mav and crewmember1 intial
+    // console.log('mav no crew before:', mav)
+    // console.log('crewmember1 initial:',crewMember1)
+    // // tested to see if mav readyformission was true
+    // crewMember1.enterShip(mav)
+    // console.log('crewmember1 entermav:',crewMember1)
+    // // tested to see if crewmember1 could enter new ship and mav crew would update properly
+    // crewMember1.enterShip(hermes)
+    // console.log('mav no crew after:', mav)
+    // console.log('crewmember1 leaveMav enterHermes:',crewMember1)
 
-    // tested leaveShip 
-    crewMember1.leaveShip();
-    console.log('crewmember1 leave ship:',crewMember1)
+    // // tested leaveShip 
+    // crewMember1.leaveShip();
+    // console.log('crewmember1 leave ship:',crewMember1)
     
-    // checked to see if readyForMission was false with empty crew
-    console.log('hermes no crew after:', hermes)
+    // // checked to see if readyForMission was false with empty crew
+    // console.log('hermes no crew after:', hermes)
 
 
 
@@ -175,9 +164,6 @@ if (typeof describe === 'function'){
       const crewMember3 = new CrewMember('Rick Sanchez', 'programmer', 'science');
       crewMember1.enterShip(mav);
       crewMember3.enterShip(mav);
-      console.log('crewmember3 1:',crewMember3)
-      crewMember3.leaveShip();
-      console.log('crewmember3 2:',crewMember3)
       console.log('mav crew members 1:',mav.crew)
       crewMember3.enterShip(hermes);
       
