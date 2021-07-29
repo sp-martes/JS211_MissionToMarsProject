@@ -17,11 +17,6 @@ class CrewMember {
     this.ship = null
   }
 
-  leaveShip(){
-    let ilocated = this.ship.crew.indexOf(this)
-    this.ship.crew.splice(ilocated,1)
-  }
-  
   enterShip(shippy){
     if(this.ship){
       this.leaveShip();
@@ -32,6 +27,12 @@ class CrewMember {
     if(jobType[this.job] == shippy.type || this.job == 'programmer'){
       shippy.readyForMission = true
     }
+  }
+  
+  leaveShip(){
+    let ilocated = this.ship.crew.indexOf(this)
+    this.ship.crew.splice(ilocated,1)
+    this.ship = null
   }
 }
 
@@ -73,7 +74,17 @@ class Ship {
     
     // return (jobMatch ? this.ability : "Can't perform a mission yet.")
 
-  
+    let mav = new Ship('Mars Ascent Vehicle', 'MAV', 'Ascend into low orbit');
+    let hermes = new Ship('Hermes', 'Main Ship', 'Interplanetary Space Travel');
+    const crewMember1 = new CrewMember('Rick Martinez', 'pilot', 'chemistry');
+    console.log('crewmember1 initial:',crewMember1)
+    crewMember1.enterShip(mav)
+    console.log('crewmember1 entermav:',crewMember1)
+    crewMember1.enterShip(hermes)
+    console.log('crewmember1 leaveMav enterHermes:',crewMember1)
+    crewMember1.leaveShip();
+    console.log('crewmember1 leave ship:',crewMember1)
+
 
 
 
@@ -125,8 +136,13 @@ if (typeof describe === 'function'){
       const crewMember3 = new CrewMember('Rick Sanchez', 'programmer', 'science');
       crewMember1.enterShip(mav);
       crewMember3.enterShip(mav);
+      console.log('crewmember3 1:',crewMember3)
+      crewMember3.leaveShip();
+      console.log('crewmember3 2:',crewMember3)
+      console.log('mav crew members 1:',mav.crew)
       crewMember3.enterShip(hermes);
-      console.log('mav crew members:',mav.crew)
+      
+      console.log('mav crew members:2',mav.crew)
       console.log('hermes crew members:',hermes.crew)
       assert.equal(hermes.missionStatement(), "Interplanetary Space Travel");
       // test below is what led to the finished code
