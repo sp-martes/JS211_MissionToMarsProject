@@ -47,7 +47,6 @@ class Ship {
     this.type = type;
     this.ability = ability;
     this.crew = [];
-    this.readyForMission = false
   }
 
   missionStatement(){
@@ -55,38 +54,34 @@ class Ship {
       return( (jobType[member.job] == this.type) || (member.job == 'programmer') )
     });
 
-    jobMatch ? this.readyForMission = true : this.readyForMission = false;
-
-    return (this.readyForMission ? this.ability : "Can't perform a mission yet.")
+    return (jobMatch ? this.ability : "Can't perform a mission yet.")
   }
 }
 
     // Tests
     
-    // let mav = new Ship('Mars Ascent Vehicle', 'MAV', 'Ascend into low orbit');
-    // let hermes = new Ship('Hermes', 'Main Ship', 'Interplanetary Space Travel');
-    // const crewMember1 = new CrewMember('Rick Martinez', 'pilot', 'chemistry');
+    let mav = new Ship('Mars Ascent Vehicle', 'MAV', 'Ascend into low orbit');
+    let hermes = new Ship('Hermes', 'Main Ship', 'Interplanetary Space Travel');
+    const crewMember1 = new CrewMember('Rick Martinez', 'pilot', 'chemistry');
     
-    // // Tested to see if crew could leave ship before entering ship
-    // crewMember1.leaveShip()
-    // console.log('crewmember1 leave ship before enter ship:', crewMember1)
-    // // mav and crewmember1 intial
-    // console.log('mav no crew before:', mav)
-    // console.log('crewmember1 initial:',crewMember1)
-    // // tested to see if mav readyformission was true
-    // crewMember1.enterShip(mav)
-    // console.log('crewmember1 entermav:',crewMember1)
-    // // tested to see if crewmember1 could enter new ship and mav crew would update properly
-    // crewMember1.enterShip(hermes)
-    // console.log('mav no crew after:', mav)
-    // console.log('crewmember1 leaveMav enterHermes:',crewMember1)
-
-    // // tested leaveShip 
-    // crewMember1.leaveShip();
-    // console.log('crewmember1 leave ship:',crewMember1)
-    
-    // // checked to see if readyForMission was false with empty crew
-    // console.log('hermes no crew after:', hermes)
+    // Tested to see if crew could leave ship before entering ship
+    crewMember1.leaveShip()
+    console.log('crewmember1 leave ship before enter ship:', crewMember1)
+    // mav and crewmember1 intial
+    console.log('mav no crew before:', mav)
+    console.log('crewmember1 initial:',crewMember1)
+    // tested to see if mav readyformission was true
+    crewMember1.enterShip(mav)
+    console.log('crewmember1 entermav:',crewMember1)
+    // tested to see if crewmember1 could enter new ship and mav crew would update properly
+    crewMember1.enterShip(hermes)
+    console.log('mav no crew after:', mav)
+    console.log('crewmember1 leaveMav enterHermes:',crewMember1)
+    // tested leaveShip 
+    crewMember1.leaveShip();
+    console.log('crewmember1 leave ship:',crewMember1)
+    // checked to see if readyForMission was false with empty crew
+    console.log('hermes no crew after:', hermes)
 
 
 
